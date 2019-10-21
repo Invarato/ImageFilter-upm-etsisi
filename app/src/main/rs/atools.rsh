@@ -83,6 +83,10 @@ static int bound (int mmin, int val, int mmax) {
     return min(mmax, m);
 }
 
+static int bound255 (int val) {
+    return bound(0, val, 255);
+}
+
 static void bubbleSort(int a[], int array_size){
     //int array_size = sizeof(a);
     //int array_size = sizeof(a) / sizeof(a[0]);

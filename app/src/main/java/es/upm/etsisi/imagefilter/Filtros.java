@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 
 public class Filtros extends FiltrosRS {
 
+    private Context context;
+
     /**
      * Clase intermedia para ofrecer posibilidades preconstruidas
      *
@@ -15,6 +17,7 @@ public class Filtros extends FiltrosRS {
      */
     public Filtros(Context context, Bitmap bmIn) {
         super(context, bmIn);
+        this.context = context;
     }
 
     /**
@@ -137,6 +140,16 @@ public class Filtros extends FiltrosRS {
      */
     public FiltrosRS azulado(){
         return this.invertir().sepia().invertir();
+    }
+
+    public FiltrosRS realceLaplaciana(){
+        Bitmap bmRes = this.getBitmapProcessed();
+        return new Filtros(this.context, bmRes).laplaciana().op_resta(bmRes);
+    }
+
+    public FiltrosRS suavizadoRoberts(){
+        Bitmap bmRes = this.getBitmapProcessed();
+        return new Filtros(this.context, bmRes).roberts().op_suma(bmRes);
     }
 
 }

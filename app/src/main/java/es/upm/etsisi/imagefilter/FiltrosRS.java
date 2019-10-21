@@ -26,7 +26,17 @@ import es.upm.etsisi.imagefilter.renders.ScriptC_posterizar;
 import es.upm.etsisi.imagefilter.renders.ScriptC_prewitt;
 import es.upm.etsisi.imagefilter.renders.ScriptC_sepia;
 import es.upm.etsisi.imagefilter.renders.ScriptC_solarizar;
-import es.upm.etsisi.imagefilter.renders.ScriptC_union;
+import es.upm.etsisi.imagefilter.renders.ScriptC_op_union;
+import es.upm.etsisi.imagefilter.renders.ScriptC_op_division;
+import es.upm.etsisi.imagefilter.renders.ScriptC_op_multiplicacion;
+import es.upm.etsisi.imagefilter.renders.ScriptC_op_resta;
+import es.upm.etsisi.imagefilter.renders.ScriptC_op_suma;
+import es.upm.etsisi.imagefilter.renders.ScriptC_pasoBajo;
+import es.upm.etsisi.imagefilter.renders.ScriptC_pasoAlto;
+import es.upm.etsisi.imagefilter.renders.ScriptC_gradiente;
+import es.upm.etsisi.imagefilter.renders.ScriptC_sobel;
+import es.upm.etsisi.imagefilter.renders.ScriptC_roberts;
+import es.upm.etsisi.imagefilter.renders.ScriptC_laplaciana;
 
 
 public class FiltrosRS {
@@ -148,24 +158,50 @@ public class FiltrosRS {
         return this;
     }
 
-
-//    interface ScriptCChildExtend{
-//        public void invoke_process(Allocation inputImage, Allocation outputImage) ;
-//    }
-
-//    //    private void normalInvokeProcess(Class <? extends ScriptC> typeOfScriptC){
-//    private void normalInvokeProcess(Class <? extends ScriptC> typeOfScriptC){
-//        try {
-//            ScriptC mEqScript = typeOfScriptC.getConstructor(RenderScript.class).newInstance(rs);
-//            mEqScript.invoke_process(tmpAllocation, tmpAllocation);
-//            mEqScript.destroy();
-//        } catch (IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     public FiltrosRS mediana(){
         ScriptC_mediana mEqScript = new ScriptC_mediana(rs);
+        mEqScript.invoke_process(tmpAllocation, tmpAllocation);
+        mEqScript.destroy();
+        return this;
+    }
+
+    public FiltrosRS pasoBajo(){
+        ScriptC_pasoBajo mEqScript = new ScriptC_pasoBajo(rs);
+        mEqScript.invoke_process(tmpAllocation, tmpAllocation);
+        mEqScript.destroy();
+        return this;
+    }
+
+    public FiltrosRS pasoAlto(){
+        ScriptC_pasoAlto mEqScript = new ScriptC_pasoAlto(rs);
+        mEqScript.invoke_process(tmpAllocation, tmpAllocation);
+        mEqScript.destroy();
+        return this;
+    }
+
+    public FiltrosRS gradiente(){
+        ScriptC_gradiente mEqScript = new ScriptC_gradiente(rs);
+        mEqScript.invoke_process(tmpAllocation, tmpAllocation);
+        mEqScript.destroy();
+        return this;
+    }
+
+    public FiltrosRS sobel(){
+        ScriptC_sobel mEqScript = new ScriptC_sobel(rs);
+        mEqScript.invoke_process(tmpAllocation, tmpAllocation);
+        mEqScript.destroy();
+        return this;
+    }
+
+    public FiltrosRS roberts(){
+        ScriptC_roberts mEqScript = new ScriptC_roberts(rs);
+        mEqScript.invoke_process(tmpAllocation, tmpAllocation);
+        mEqScript.destroy();
+        return this;
+    }
+
+    public FiltrosRS laplaciana(){
+        ScriptC_laplaciana mEqScript = new ScriptC_laplaciana(rs);
         mEqScript.invoke_process(tmpAllocation, tmpAllocation);
         mEqScript.destroy();
         return this;
@@ -257,13 +293,89 @@ public class FiltrosRS {
         return this;
     }
 
-    public FiltrosRS union(Bitmap otherBitmap){
+    public FiltrosRS op_union(Bitmap otherBitmap){
         if (otherBitmap.getHeight()<this.bmRes.getHeight()
                 ||  otherBitmap.getWidth()<this.bmRes.getWidth()){
             throw new IllegalArgumentException("New bitmap should be greather than current");
         }
 
-        ScriptC_union mEqScript = new ScriptC_union(rs);
+        ScriptC_op_union mEqScript = new ScriptC_op_union(rs);
+
+        Allocation otherAllocation = this.getOtherAllocation(otherBitmap);
+        mEqScript.set_diferent_alloc(otherAllocation);
+
+        mEqScript.forEach_root(tmpAllocation, tmpAllocation);
+        mEqScript.destroy();
+
+        otherAllocation.destroy();
+
+        return this;
+    }
+
+    public FiltrosRS op_division(Bitmap otherBitmap){
+        if (otherBitmap.getHeight()<this.bmRes.getHeight()
+                ||  otherBitmap.getWidth()<this.bmRes.getWidth()){
+            throw new IllegalArgumentException("New bitmap should be greather than current");
+        }
+
+        ScriptC_op_division mEqScript = new ScriptC_op_division(rs);
+
+        Allocation otherAllocation = this.getOtherAllocation(otherBitmap);
+        mEqScript.set_diferent_alloc(otherAllocation);
+
+        mEqScript.forEach_root(tmpAllocation, tmpAllocation);
+        mEqScript.destroy();
+
+        otherAllocation.destroy();
+
+        return this;
+    }
+
+    public FiltrosRS op_multiplicacion(Bitmap otherBitmap){
+        if (otherBitmap.getHeight()<this.bmRes.getHeight()
+                ||  otherBitmap.getWidth()<this.bmRes.getWidth()){
+            throw new IllegalArgumentException("New bitmap should be greather than current");
+        }
+
+        ScriptC_op_multiplicacion mEqScript = new ScriptC_op_multiplicacion(rs);
+
+        Allocation otherAllocation = this.getOtherAllocation(otherBitmap);
+        mEqScript.set_diferent_alloc(otherAllocation);
+
+        mEqScript.forEach_root(tmpAllocation, tmpAllocation);
+        mEqScript.destroy();
+
+        otherAllocation.destroy();
+
+        return this;
+    }
+
+    public FiltrosRS op_resta(Bitmap otherBitmap){
+        if (otherBitmap.getHeight()<this.bmRes.getHeight()
+                ||  otherBitmap.getWidth()<this.bmRes.getWidth()){
+            throw new IllegalArgumentException("New bitmap should be greather than current");
+        }
+
+        ScriptC_op_resta mEqScript = new ScriptC_op_resta(rs);
+
+        Allocation otherAllocation = this.getOtherAllocation(otherBitmap);
+        mEqScript.set_diferent_alloc(otherAllocation);
+
+        mEqScript.forEach_root(tmpAllocation, tmpAllocation);
+        mEqScript.destroy();
+
+        otherAllocation.destroy();
+
+        return this;
+    }
+
+    public FiltrosRS op_suma(Bitmap otherBitmap){
+        if (otherBitmap.getHeight()<this.bmRes.getHeight()
+                ||  otherBitmap.getWidth()<this.bmRes.getWidth()){
+            throw new IllegalArgumentException("New bitmap should be greather than current");
+        }
+
+        ScriptC_op_suma mEqScript = new ScriptC_op_suma(rs);
 
         Allocation otherAllocation = this.getOtherAllocation(otherBitmap);
         mEqScript.set_diferent_alloc(otherAllocation);
