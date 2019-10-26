@@ -32,7 +32,10 @@ include ':app', ':es-upm-etsisi-imagefilter'
 
 ## Compile a new AAR
 It is not necessary, only if you need to compile.
-Execute the gradle command `build`. The new file AAR will build in `\build\outputs\aar\`.
+
+Execute the gradle command `build`. 
+
+The new file AAR will build in `\build\outputs\aar\`.
 
 
 ## Mode of use
