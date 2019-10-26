@@ -16,7 +16,6 @@ import es.upm.etsisi.imagefilter.renders.ScriptC_contraste;
 import es.upm.etsisi.imagefilter.renders.ScriptC_correlation;
 import es.upm.etsisi.imagefilter.renders.ScriptC_escalaDeGrises;
 import es.upm.etsisi.imagefilter.renders.ScriptC_escalaDeGrisesMedia;
-import es.upm.etsisi.imagefilter.renders.ScriptC_histEq;
 import es.upm.etsisi.imagefilter.renders.ScriptC_hsva;
 import es.upm.etsisi.imagefilter.renders.ScriptC_invertir;
 import es.upm.etsisi.imagefilter.renders.ScriptC_mediana;
@@ -98,19 +97,6 @@ public class FiltrosRS {
 
     public FiltrosRS escalaDeGrisesMedia(){
         ScriptC_escalaDeGrisesMedia mEqScript = new ScriptC_escalaDeGrisesMedia(rs);
-        mEqScript.forEach_root(tmpAllocation, tmpAllocation);
-
-        mEqScript.destroy();
-
-        return this;
-    }
-
-    public FiltrosRS histogramEqualization(){
-        int width = this.bmRes.getWidth();
-        int height = this.bmRes.getHeight();
-
-        ScriptC_histEq mEqScript = new ScriptC_histEq(rs);
-        mEqScript.set_size(width*height);
         mEqScript.forEach_root(tmpAllocation, tmpAllocation);
 
         mEqScript.destroy();

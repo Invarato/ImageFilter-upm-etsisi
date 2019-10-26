@@ -1,55 +1,142 @@
 package es.upm.etsisi.imagefilter;
 
-import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.widget.ImageView;
+
+import es.upm.etsisi.imagefilter.Filtros;
+
 
 public class MainActivity extends AppCompatActivity {
+
+    private ImageView ivo;
+    private ImageView ive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+
+        ivo = findViewById(R.id.imageView_ejemploOriginal);
+        ive = findViewById(R.id.imageView_ejemplo);
+
+//        prueba(R.drawable.halftone);
+//        prueba(R.drawable.valveoriginal);
+        prueba(R.drawable.lenna);
+        //prueba(R.drawable.nina);
+
+        //pruebaTwo(R.drawable.valveoriginal, R.drawable.valvemod);
     }
+
+//    private void cannyEdgeDetector(int rdrawalble){
+//        ivo.setImageBitmap(BitmapFactory.decodeResource( getResources(), rdrawalble));
 //
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
+//        Bitmap bm = BitmapFactory.decodeResource( getResources(), rdrawalble);
+//
+//        // Suavizar imagen y eliminar ruido
+//        Bitmap nbm = new FiltrosRS(this, bm)
+//                .gausianBlur(10.5f)
+//                .getBitmapProcessed();
+//
+//        // Localizar bordes con roberts, prewitt o sobel
+//        FiltrosAntiguos filtro = new FiltrosAntiguos(nbm);
+//        nbm = filtro.sobel(nbm);
+//
+//        ive.setImageBitmap(nbm);
 //    }
 //
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
+//    private void pruebaTwo(int rdrawalble, int rdrawableTWO) {
+//        ivo.setImageBitmap(BitmapFactory.decodeResource(getResources(), rdrawalble));
 //
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
+//        Bitmap bm = BitmapFactory.decodeResource(getResources(), rdrawalble);
+//        Bitmap bmTwo = BitmapFactory.decodeResource(getResources(), rdrawableTWO);
 //
-//        return super.onOptionsItemSelected(item);
+//        Bitmap nbm = new Filtros(this, bm)
+//                .union(bmTwo)
+//                .getBitmapProcessed();
+//
+//
+//        ive.setImageBitmap(nbm);
+//
 //    }
+
+    private void prueba(int rdrawalble) {
+        ivo.setImageBitmap(BitmapFactory.decodeResource(getResources(), rdrawalble));
+
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), rdrawalble);
+
+//        FiltrosAntiguos filtro = new FiltrosAntiguos(bm);
+//        Bitmap nbm = filtro.solarizarImagen(bm);
+//        Bitmap nbm = filtro.sepiaImagen(bm);
+//        Bitmap nbm = filtro.prewitt(bm);
+
+
+//
+//        Bitmap nbm = new FiltrosRS(this, bm)
+//                .histogramEqualization()
+//                .gausianBlur(10.5f)
+//                .solarizar()
+//                .invertir()
+//                .getBitmapProcessed();
+
+//        Bitmap nbm = new FiltrosRS(this, bm)
+//                .gausianBlur(10.5f)
+//                .prewitt()
+////                .histogramEqualization()
+//                //.solarizar()
+//                //.invertir()
+//
+//                .getBitmapProcessed();
+
+//        Bitmap nbm = new FiltrosRS(this, bm)
+//                .prewitt()
+//                .getBitmapProcessed();
+
+        //Bitmap nbm = new FiltrosRS(this, bm)
+        //        .gausianBlur(10.5f)
+        //        .prewitt()
+        //        .negroVerdadero()
+        //        .moreNeighborhood()
+        //        .getBitmapProcessed();
+
+//TODO        Bitmap nbm = new FiltrosRS(this, bm)
+//TODO                .gausianBlur(10.5f)
+//TODO                .prewitt()
+//TODO                //.negroVerdadero()
+//TODO                .moreNeighborhood()
+//TODO//                .blancoVerdadero()
+//TODO                //.histogramEqualization()
+//TODO                .correlation()
+//TODO                .getBitmapProcessed();
+
+//        https://en.wikipedia.org/wiki/Thresholding_(image_processing)
+
+        Bitmap nbm = new Filtros(this, bm)
+                //.escalaDeGrises(0.30f,0.59f,0.11f)
+                //.escalaDeGrisesMedia()
+//                .escalaDeGrisesHDR()
+//                .invertir()
+//                .histogramEqualization()
+//                .blancoNegro()
+//                .matiz(360f)
+//                .hsva(120f, 0.84f, 0.3f)
+                //.hsva(-120.0f, -1.0f, -1.0f)
+//                .brillo(-120)
+//                .contraste(200)
+//                .posterizar(70)
+//                .azulado()
+//                .mediana()
+//                .brillo(100)
+//                .moreNeighborhood(10)
+//                .prewitt()
+//                .sepia()
+                .solarizar()
+                .getBitmapProcessed();
+
+
+        ive.setImageBitmap(nbm);
+    }
 }
