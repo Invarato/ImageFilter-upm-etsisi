@@ -4,6 +4,7 @@
 This library have several filters to process images in Android directly in Render Script (C99).
 As developer than want to use filters, you can call easily via Java build Software pattern the 
 different filters and concatenate these.
+This library is part of TFG of Ramón Invarato for UPM University (ETSISI) <https://www.etsisi.upm.es/>
 
 
 ## Import last AAR
