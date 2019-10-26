@@ -63,45 +63,45 @@ generated (`nbn`) after apply previous filters.
 
 ## Current filters
 In this library you can use follow filters:
-    * blancoNegro
-    * blancoverdadero
-    * brillo
-    * canalAlpha
-    * complemento
-    * contraste
-    * correlation
-    * escalaDeGrises
-    * escalaDeGrisesMedia
-    * hsva
-    * invertir
-    * mediana
-    * mooreneighborhood
-    * negroverdadero
-    * posterizar
-    * prewitt
-    * sepia
-    * solarizar
-    * op_union
-    * op_division
-    * op_multiplicacion
-    * op_resta
-    * op_suma
-    * pasoBajo
-    * pasoAlto
-    * gradiente
-    * sobel
-    * roberts
-    * laplaciana
+* blancoNegro
+* blancoverdadero
+* brillo
+* canalAlpha
+* complemento
+* contraste
+* correlation
+* escalaDeGrises
+* escalaDeGrisesMedia
+* hsva
+* invertir
+* mediana
+* mooreneighborhood
+* negroverdadero
+* posterizar
+* prewitt
+* sepia
+* solarizar
+* op_union
+* op_division
+* op_multiplicacion
+* op_resta
+* op_suma
+* pasoBajo
+* pasoAlto
+* gradiente
+* sobel
+* roberts
+* laplaciana
 
 And you can use the follow built-in methods:
-    * escalaDeGrisesPALNTSC
-    * escalaDeGrisesHDTV
-    * escalaDeGrisesHDR
-    * blancoNegro
-    * quitarCanalAlpha
-    * matiz
-    * saturacion
-    * intensidad
-    * azulado
-    * realceLaplaciana
-    * suavizadoRoberts
+* escalaDeGrisesPALNTSC
+* escalaDeGrisesHDTV
+* escalaDeGrisesHDR
+* blancoNegro
+* quitarCanalAlpha
+* matiz
+* saturacion
+* intensidad
+* azulado
+* realceLaplaciana
+* suavizadoRoberts
