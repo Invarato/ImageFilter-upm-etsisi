@@ -1,3 +1,4 @@
+// Autor Ramón Invarato Ménendez
 #pragma version(1)
 
 //https://es.wikipedia.org/wiki/Modelo_de_color_HSV
@@ -109,19 +110,17 @@ typedef struct {
          bottomLeft, bottom, bottomRight;
 } PixelRegion;
 
-static PixelRegion pr;
-
-static uint32_t y_less_one;
-static uint32_t y_plus_one;
-static uint32_t x_less_one;
-static uint32_t x_plus_one;
-
 
 static PixelRegion getPixelRegion (rs_allocation current_alloc,
                                    uint32_t lastX,
                                    uint32_t lastY,
                                    uint32_t x,
                                    uint32_t y) {
+    uint32_t y_less_one;
+    uint32_t y_plus_one;
+    uint32_t x_less_one;
+    uint32_t x_plus_one;
+
     if (x == 0) {
         x_less_one = x;
         x_plus_one = x+1;
@@ -144,6 +143,7 @@ static PixelRegion getPixelRegion (rs_allocation current_alloc,
         y_plus_one = y+1;
     }
 
+    PixelRegion pr;
     pr.topLeft = rsGetElementAt_uchar4(current_alloc, x_less_one, y_less_one);
     pr.top = rsGetElementAt_uchar4(current_alloc, x_less_one, y);
     pr.topRight = rsGetElementAt_uchar4(current_alloc, x_less_one, y_plus_one);

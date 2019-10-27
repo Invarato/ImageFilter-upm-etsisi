@@ -19,7 +19,6 @@ uchar4 RS_KERNEL copy(uchar4 in) {
 
 // x vertical, y horizontal
 uchar4 RS_KERNEL mediana(uchar4 in, uint32_t x, uint32_t y) {
-    //PixelRegion pr = getPixelRegion (x, y);
     PixelRegion pr = getPixelRegion (current_alloc, lastX, lastY, x, y);
 
     int arrayR[9] = {pr.topLeft.r, pr.top.r, pr.topRight.r, pr.left.r, pr.center.r, pr.right.r, pr.bottomLeft.r, pr.bottom.r, pr.bottomRight.r};
@@ -44,12 +43,7 @@ void process(rs_allocation inputImage, rs_allocation outputImage) {
     lastX = imageWidth - 1;
     lastY = imageHeight - 1;
 
-    //current_alloc = inputImage;
-
     current_alloc = rsCreateAllocation_float4(imageWidth, imageHeight);
     rsForEach(copy, inputImage, current_alloc);
-
-    rsForEach(mediana, current_alloc, current_alloc);
-
-    outputImage = current_alloc;
+    rsForEach(mediana, current_alloc, outputImage);
 }

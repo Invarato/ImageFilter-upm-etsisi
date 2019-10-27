@@ -26,9 +26,9 @@ uchar4 RS_KERNEL copy(uchar4 in) {
 uchar4 RS_KERNEL laplaciana(uchar4 in, uint32_t x, uint32_t y) {
     PixelRegion pr = getPixelRegion (current_alloc, lastX, lastY, x, y);
 
-    in.r = bound255( -1*(-pr.top.r -pr.left.r +4*pr.center.r -pr.right.r -pr.bottom.r) );
-    in.g = bound255( -1*(-pr.top.g -pr.left.g +4*pr.center.g -pr.right.g -pr.bottom.g) );
-    in.b = bound255( -1*(-pr.top.b -pr.left.b +4*pr.center.b -pr.right.b -pr.bottom.b) );
+    in.r = bound255( -1*(-pr.top.r -pr.left.r + 4*pr.center.r -pr.right.r -pr.bottom.r) );
+    in.g = bound255( -1*(-pr.top.g -pr.left.g + 4*pr.center.g -pr.right.g -pr.bottom.g) );
+    in.b = bound255( -1*(-pr.top.b -pr.left.b + 4*pr.center.b -pr.right.b -pr.bottom.b) );
 
     return in;
 }
@@ -37,16 +37,10 @@ uchar4 RS_KERNEL laplaciana(uchar4 in, uint32_t x, uint32_t y) {
 void process(rs_allocation inputImage, rs_allocation outputImage) {
     uint32_t imageWidth = rsAllocationGetDimX(inputImage);
     uint32_t imageHeight = rsAllocationGetDimY(inputImage);
-
     lastX = imageWidth - 1;
     lastY = imageHeight - 1;
 
-    //current_alloc = inputImage;
-
     current_alloc = rsCreateAllocation_float4(imageWidth, imageHeight);
     rsForEach(copy, inputImage, current_alloc);
-
-    rsForEach(laplaciana, current_alloc, current_alloc);
-
-    outputImage = current_alloc;
+    rsForEach(laplaciana, current_alloc, outputImage);
 }

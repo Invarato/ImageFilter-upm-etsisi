@@ -7,7 +7,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import es.upm.etsisi.imagefilter.Filtros;
+//import es.upm.etsisi.imagefilter.Filtros;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 //        prueba(R.drawable.halftone);
 //        prueba(R.drawable.valveoriginal);
         prueba(R.drawable.lenna);
-        //prueba(R.drawable.nina);
+//        prueba(R.drawable.nina);
 
         //pruebaTwo(R.drawable.valveoriginal, R.drawable.valvemod);
     }
@@ -70,8 +70,16 @@ public class MainActivity extends AppCompatActivity {
 
 //        FiltrosAntiguos filtro = new FiltrosAntiguos(bm);
 //        Bitmap nbm = filtro.solarizarImagen(bm);
-//        Bitmap nbm = filtro.sepiaImagen(bm);
+////        Bitmap nbm = filtro.sepiaImagen(bm);
 //        Bitmap nbm = filtro.prewitt(bm);
+//        Bitmap nbm = filtro.pasoBajo(bm);
+//        Bitmap nbm = filtro.pasoAlto(bm);
+//        Bitmap nbm = filtro.gradiente(bm);
+//        Bitmap nbm = filtro.sobel(bm);
+//        Bitmap nbm = filtro.roberts(bm);
+//        Bitmap nbm = filtro.laplaciana(bm);
+//        Bitmap nbm = filtro.realceLaplaciana(bm);
+//        Bitmap nbm = filtro.suavizadoRoberts(bm);
 
 
 //
@@ -115,25 +123,34 @@ public class MainActivity extends AppCompatActivity {
 //        https://en.wikipedia.org/wiki/Thresholding_(image_processing)
 
         Bitmap nbm = new Filtros(this, bm)
-                //.escalaDeGrises(0.30f,0.59f,0.11f)
-                //.escalaDeGrisesMedia()
-//                .escalaDeGrisesHDR()
-//                .invertir()
-//                .histogramEqualization()
-//                .blancoNegro()
-//                .matiz(360f)
-//                .hsva(120f, 0.84f, 0.3f)
-                //.hsva(-120.0f, -1.0f, -1.0f)
-//                .brillo(-120)
-//                .contraste(200)
-//                .posterizar(70)
-//                .azulado()
-//                .mediana()
-//                .brillo(100)
-//                .moreNeighborhood(10)
-//                .prewitt()
-//                .sepia()
-                .solarizar()
+//                //.escalaDeGrises(0.30f,0.59f,0.11f)
+//                //.escalaDeGrisesMedia()
+////                .escalaDeGrisesHDR()
+////                .invertir()
+////                .histogramEqualization()
+////                .blancoNegro()
+////                .matiz(360f)
+////                .hsva(120f, 0.84f, 0.3f)
+//                //.hsva(-120.0f, -1.0f, -1.0f)
+////                .brillo(-120)
+////                .contraste(200)
+////                .posterizar(70)
+////                .azulado()
+////                .mediana()
+////                .brillo(100)
+////                .moreNeighborhood(10)
+//////                .prewitt()
+////                .sepia()
+////                .solarizar()
+////                .pasoBajo()
+////                .mediana()
+////                .pasoAlto()
+//                .gradiente()
+//                .sobel()
+//                .roberts()
+//                .laplaciana()
+//                .realceLaplaciana()
+                .suavizadoRoberts()
                 .getBitmapProcessed();
 
 

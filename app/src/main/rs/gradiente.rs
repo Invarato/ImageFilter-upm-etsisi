@@ -35,12 +35,7 @@ void process(rs_allocation inputImage, rs_allocation outputImage) {
     lastX = imageWidth - 1;
     lastY = imageHeight - 1;
 
-    //current_alloc = inputImage;
-
     current_alloc = rsCreateAllocation_float4(imageWidth, imageHeight);
     rsForEach(copy, inputImage, current_alloc);
-
-    rsForEach(gradiente, current_alloc, current_alloc);
-
-    outputImage = current_alloc;
+    rsForEach(gradiente, current_alloc, outputImage);
 }

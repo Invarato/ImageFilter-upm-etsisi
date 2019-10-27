@@ -29,8 +29,9 @@ public class Filtros extends FiltrosRS {
      *
      * @return this
      */
-    public FiltrosRS escalaDeGrisesPALNTSC(){
-        return this.escalaDeGrises(0.299f,0.587f,0.114f);
+    public Filtros escalaDeGrisesPALNTSC(){
+        this.escalaDeGrises(0.299f,0.587f,0.114f);
+        return this;
     }
 
     /**
@@ -41,8 +42,9 @@ public class Filtros extends FiltrosRS {
      *  Más información en https://en.wikipedia.org/wiki/Grayscale
      * @return this
      */
-    public FiltrosRS escalaDeGrisesHDTV(){
-        return this.escalaDeGrises(0.2126f,0.7152f,0.0722f);
+    public Filtros escalaDeGrisesHDTV(){
+        this.escalaDeGrises(0.2126f,0.7152f,0.0722f);
+        return this;
     }
 
     /**
@@ -54,8 +56,9 @@ public class Filtros extends FiltrosRS {
      *
      * @return this
      */
-    public FiltrosRS escalaDeGrisesHDR(){
-        return this.escalaDeGrises(0.2627f,0.6780f,0.0593f);
+    public Filtros escalaDeGrisesHDR(){
+        this.escalaDeGrises(0.2627f,0.6780f,0.0593f);
+        return this;
     }
 
     /**
@@ -64,8 +67,9 @@ public class Filtros extends FiltrosRS {
      *
      * @return this
      */
-    public FiltrosRS blancoNegro(){
-        return this.blancoNegro(128);
+    public Filtros blancoNegro(){
+        this.blancoNegro(128);
+        return this;
     }
 
     /**
@@ -74,8 +78,9 @@ public class Filtros extends FiltrosRS {
      *
      * @return this
      */
-    public FiltrosRS quitarCanalAlpha(){
-        return this.canalAlpha(255);
+    public Filtros quitarCanalAlpha(){
+        this.canalAlpha(255);
+        return this;
     }
 
 
@@ -93,12 +98,13 @@ public class Filtros extends FiltrosRS {
      *  300.0f: magenta.
      * @return this
      */
-    public FiltrosRS matiz(float anguloMatiz){
+    public Filtros matiz(float anguloMatiz){
         if (0.0 > anguloMatiz || anguloMatiz > 360.0){
             throw new IllegalArgumentException("Bad Angle. Angle only in range " +
                     "0.0 <= Angle <= 360.0. Current Angle: " + anguloMatiz);
         }
-        return this.hsva(anguloMatiz, -1.0f, -1.0f);
+        this.hsva(anguloMatiz, -1.0f, -1.0f);
+        return this;
     }
 
     /**
@@ -109,12 +115,13 @@ public class Filtros extends FiltrosRS {
      * @param newSaturation 0.0f a 1.0f
      * @return this
      */
-    public FiltrosRS saturacion(float newSaturation){
+    public Filtros saturacion(float newSaturation){
         if (0.0 > newSaturation || newSaturation > 1.0){
             throw new IllegalArgumentException("Bad saturacion. Saturacion only in range " +
                     "0.0 <= Saturacion <= 1.0. Current Saturacion: " + newSaturation);
         }
-        return this.hsva(-1.0f, newSaturation, -1.0f);
+        this.hsva(-1.0f, newSaturation, -1.0f);
+        return this;
     }
 
     /**
@@ -125,12 +132,13 @@ public class Filtros extends FiltrosRS {
      * @param newIntensity 0.0f a 1.0f
      * @return this
      */
-    public FiltrosRS intensidad(float newIntensity){
+    public Filtros intensidad(float newIntensity){
         if (0.0 > newIntensity || newIntensity > 1.0){
             throw new IllegalArgumentException("Bad intensity. Intensity only in range " +
                     "0.0 <= Intensity <= 1.0. Current Intensity: " + newIntensity);
         }
-        return this.hsva(-1.0f, -1.0f, newIntensity);
+        this.hsva(-1.0f, -1.0f, newIntensity);
+        return this;
     }
 
     /**
@@ -138,18 +146,21 @@ public class Filtros extends FiltrosRS {
      *
      * @return this
      */
-    public FiltrosRS azulado(){
-        return this.invertir().sepia().invertir();
+    public Filtros azulado(){
+        this.invertir().sepia().invertir();
+        return this;
     }
 
-    public FiltrosRS realceLaplaciana(){
+    public Filtros realceLaplaciana(){
         Bitmap bmRes = this.getBitmapProcessed();
-        return new Filtros(this.context, bmRes).laplaciana().op_resta(bmRes);
+        this.laplaciana().op_resta(bmRes);
+        return this;
     }
 
-    public FiltrosRS suavizadoRoberts(){
+    public Filtros suavizadoRoberts(){
         Bitmap bmRes = this.getBitmapProcessed();
-        return new Filtros(this.context, bmRes).roberts().op_suma(bmRes);
+        this.roberts().op_suma(bmRes);
+        return this;
     }
 
 }

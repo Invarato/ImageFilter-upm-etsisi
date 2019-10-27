@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
+import android.renderscript.ScriptC;
 import android.renderscript.ScriptIntrinsicBlur;
 
 import es.upm.etsisi.imagefilter.renders.ScriptC_blancoNegro;
@@ -50,6 +51,7 @@ public class FiltrosRS {
 
         this.rs = RenderScript.create(context);
         this.tmpAllocation = Allocation.createFromBitmap(rs, this.bmRes);
+//        this.tmpAllocation = Allocation.createFromBitmap(rs, this.bmRes, Allocation.MipmapControl.MIPMAP_NONE, Allocation.USAGE_SCRIPT);
     }
 
     /***
@@ -133,7 +135,7 @@ public class FiltrosRS {
     public FiltrosRS prewitt(){
         ScriptC_prewitt mEqScript = new ScriptC_prewitt(rs);
 
-        Allocation extraAllocation = this.getExtraAllocation();
+        Allocation extraAllocation = this.getCopyOfTmpAllocation();
         mEqScript.set_extra_alloc(extraAllocation);
 
         mEqScript.forEach_root(tmpAllocation, tmpAllocation);
@@ -151,10 +153,12 @@ public class FiltrosRS {
         return this;
     }
 
+
     public FiltrosRS pasoBajo(){
         ScriptC_pasoBajo mEqScript = new ScriptC_pasoBajo(rs);
         mEqScript.invoke_process(tmpAllocation, tmpAllocation);
         mEqScript.destroy();
+
         return this;
     }
 
@@ -197,7 +201,7 @@ public class FiltrosRS {
     public FiltrosRS negroVerdadero(){
         ScriptC_negroverdadero mEqScript = new ScriptC_negroverdadero(rs);
 
-        Allocation extraAllocation = this.getExtraAllocation();
+        Allocation extraAllocation = this.getCopyOfTmpAllocation();
         mEqScript.set_extra_alloc(extraAllocation);
 
         mEqScript.forEach_root(tmpAllocation, tmpAllocation);
@@ -211,7 +215,7 @@ public class FiltrosRS {
     public FiltrosRS correlation(){
         ScriptC_correlation mEqScript = new ScriptC_correlation(rs);
 
-        Allocation extraAllocation = this.getExtraAllocation();
+        Allocation extraAllocation = this.getCopyOfTmpAllocation();
         mEqScript.set_extra_alloc(extraAllocation);
 
         mEqScript.forEach_root(tmpAllocation, tmpAllocation);
@@ -225,7 +229,7 @@ public class FiltrosRS {
     public FiltrosRS blancoVerdadero(){
         ScriptC_blancoverdadero mEqScript = new ScriptC_blancoverdadero(rs);
 
-        Allocation extraAllocation = this.getExtraAllocation();
+        Allocation extraAllocation = this.getCopyOfTmpAllocation();
         mEqScript.set_extra_alloc(extraAllocation);
 
         mEqScript.forEach_root(tmpAllocation, tmpAllocation);
@@ -239,7 +243,7 @@ public class FiltrosRS {
     public FiltrosRS moreNeighborhood(){
         ScriptC_mooreneighborhood mEqScript = new ScriptC_mooreneighborhood(rs);
 
-        Allocation extraAllocation = this.getExtraAllocation();
+        Allocation extraAllocation = this.getCopyOfTmpAllocation();
 //TODO        mEqScript.set_extra_alloc(extraAllocation);
 //TODO
 //TODO        mEqScript.forEach_root(tmpAllocation, tmpAllocation);
@@ -538,7 +542,7 @@ public class FiltrosRS {
     }
 
 
-    public Allocation getExtraAllocation() {
+    public Allocation getCopyOfTmpAllocation() {
         /**
          * Obtiene una allocation (almacenamiento) extra con la copia actual
          * Normalmente se usa para procesar sus píxeles con Render
@@ -561,7 +565,7 @@ public class FiltrosRS {
     }
 
     public Bitmap getBitmapProcessed() {
-        return this.getBitmapProcessed(true);
+        return this.getBitmapProcessed(false);
     }
 
     public void destroyRenderScript(){
