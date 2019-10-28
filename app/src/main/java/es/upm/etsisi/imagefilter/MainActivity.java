@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
 //        Bitmap nbm = filtro.laplaciana(bm);
 //        Bitmap nbm = filtro.realceLaplaciana(bm);
 //        Bitmap nbm = filtro.suavizadoRoberts(bm);
+//        Bitmap nbm = filtro.freiChen(bm);
 
 
 //
@@ -150,7 +151,8 @@ public class MainActivity extends AppCompatActivity {
 //                .roberts()
 //                .laplaciana()
 //                .realceLaplaciana()
-                .suavizadoRoberts()
+//                .suavizadoRoberts()
+                .freichen()
                 .getBitmapProcessed();
 
 

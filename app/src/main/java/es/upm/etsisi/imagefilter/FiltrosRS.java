@@ -37,6 +37,7 @@ import es.upm.etsisi.imagefilter.renders.ScriptC_gradiente;
 import es.upm.etsisi.imagefilter.renders.ScriptC_sobel;
 import es.upm.etsisi.imagefilter.renders.ScriptC_roberts;
 import es.upm.etsisi.imagefilter.renders.ScriptC_laplaciana;
+import es.upm.etsisi.imagefilter.renders.ScriptC_freichen;
 
 
 public class FiltrosRS {
@@ -197,6 +198,14 @@ public class FiltrosRS {
         return this;
     }
 
+
+    public FiltrosRS freichen(){
+        ScriptC_freichen mEqScript = new ScriptC_freichen(rs);
+        mEqScript.invoke_process(tmpAllocation, tmpAllocation);
+        mEqScript.destroy();
+
+        return this;
+    }
 
     public FiltrosRS negroVerdadero(){
         ScriptC_negroverdadero mEqScript = new ScriptC_negroverdadero(rs);

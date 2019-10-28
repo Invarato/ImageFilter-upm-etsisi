@@ -98,6 +98,7 @@ In this library you can use follow filters:
 * sobel
 * roberts
 * laplaciana
+* freichen
 
 And you can use the follow built-in methods:
 * escalaDeGrisesPALNTSC
