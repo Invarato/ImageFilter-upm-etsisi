@@ -10,10 +10,8 @@ static rs_allocation current_alloc;
 static uint32_t lastX;
 static uint32_t lastY;
 
-//static float R2;
-//static float HALF2R2;
-static const float R2 = 1.414214;
-static const float HALF2R2 = 0.353553;
+static const float R2 = 1.414214;       //R2 = sqrt((float) 2.0);
+static const float HALF2R2 = 0.353553;  //HALF2R2 = 1.0/(2.0*R2);
 static const float HALF = 1.0/2.0;
 static const float ONESIXTH = 1.0/6.0;
 static const float ONETHIRD = 1.0/3.0;
@@ -46,10 +44,64 @@ static const float g9[9] = {1.0, 1.0, 1.0,
                             1.0, 1.0, 1.0,
                             1.0, 1.0, 1.0};
 
-void init() {
-    //R2 = sqrt((float) 2.0);
-    //HALF2R2 = 1.0/(2.0*R2);
+//static const float g1[3][3] = {{1.0, R2, 1.0},
+//                               {0.0, 0.0, 0.0},
+//                               {-1.0, -R2, -1.0}};
+//static const float g2[3][3] = {{1.0, 0.0, -1.0},
+//                               {R2, 0.0, -R2},
+//                               {1.0, 0.0, -1.0}};
+//static const float g3[3][3] = {{0.0, -1.0, R2},
+//                               {1.0, 0.0, -1.0},
+//                               {-R2, 1.0, 0.0}};
+//static const float g4[3][3] = {{R2, -1.0, 0.0},
+//                               {-1.0, 0.0, 1.0},
+//                               {0.0, 1.0, -R2}};
+//static const float g5[3][3] = {{0.0, 1.0, 0.0},
+//                               {-1.0, 0.0, -1.0},
+//                               {0.0, 1.0, 0.0}};
+//static const float g6[3][3] = {{-1.0, 0.0, 1.0},
+//                               {0.0, 0.0, 0.0},
+//                               {1.0, 0.0, -1.0}};
+//static const float g7[3][3] = {{1.0, -2.0, 1.0},
+//                               {-2.0, 4.0, -2.0},
+//                               {1.0, -2.0, 1.0}};
+//static const float g8[3][3] = {{-2.0, 1.0, -2.0},
+//                               {1.0, 4.0, 1.0},
+//                               {-2.0, 1.0, -2.0}};
+//static const float g9[3][3] = {{1.0, 1.0, 1.0},
+//                               {1.0, 1.0, 1.0},
+//                               {1.0, 1.0, 1.0}};
 
+
+//static const float3 g1[3] = {{1.0, R2, 1.0},
+//                               {0.0, 0.0, 0.0},
+//                               {-1.0, -R2, -1.0}};
+//static const float3 g2[3] = {{1.0, 0.0, -1.0},
+//                               {R2, 0.0, -R2},
+//                               {1.0, 0.0, -1.0}};
+//static const float3 g3[3] = {{0.0, -1.0, R2},
+//                               {1.0, 0.0, -1.0},
+//                               {-R2, 1.0, 0.0}};
+//static const float3 g4[3] = {{R2, -1.0, 0.0},
+//                               {-1.0, 0.0, 1.0},
+//                               {0.0, 1.0, -R2}};
+//static const float3 g5[3] = {{0.0, 1.0, 0.0},
+//                               {-1.0, 0.0, -1.0},
+//                               {0.0, 1.0, 0.0}};
+//static const float3 g6[3] = {{-1.0, 0.0, 1.0},
+//                               {0.0, 0.0, 0.0},
+//                               {1.0, 0.0, -1.0}};
+//static const float3 g7[3] = {{1.0, -2.0, 1.0},
+//                               {-2.0, 4.0, -2.0},
+//                               {1.0, -2.0, 1.0}};
+//static const float3 g8[3] = {{-2.0, 1.0, -2.0},
+//                               {1.0, 4.0, 1.0},
+//                               {-2.0, 1.0, -2.0}};
+//static const float3 g9[3] = {{1.0, 1.0, 1.0},
+//                               {1.0, 1.0, 1.0},
+//                               {1.0, 1.0, 1.0}};
+
+void init() {
     //rsDebug("=====R2",R2);
     //rsDebug("=====HALF2R2",HALF2R2);
     //rsDebug("=====HALF",HALF);
@@ -57,8 +109,27 @@ void init() {
     //rsDebug("=====ONETHIRD",ONETHIRD);
 }
 
+//static void multMatrix (float3 *g[3], float mult) {
+//	for (int i=0; i<3; i++) {
+//		for (int j=0; j<3; j++) {
+//			g[i][j] *= mult;
+//		}
+//	}
+//}
+
 
 uchar4 RS_KERNEL copy(uchar4 in) {
+
+    //multMatrix(g1, HALF2R2);
+    //multMatrix(g2, HALF2R2);
+    //multMatrix(g3, HALF2R2);
+    //multMatrix(g4, HALF2R2);
+    //multMatrix(g5, HALF);
+    //multMatrix(g6, HALF);
+    //multMatrix(g7, ONESIXTH);
+    //multMatrix(g8, ONESIXTH);
+    //multMatrix(g9, ONETHIRD);
+
     return in;
 }
 
@@ -110,12 +181,64 @@ static int3 calcAllMatrixG (PixelRegion pr) {
 
 }
 
+
+
+static float3 convolutionPart (float3 g[3], float3 Ir[3], float3 Ig[3], float3 Ib[3]) {
+    float dp3r = dot(g[0], Ir[0]) + dot(g[1], Ir[1]) + dot(g[2], Ir[2]);
+    float dp3g = dot(g[0], Ig[0]) + dot(g[1], Ig[1]) + dot(g[2], Ig[2]);
+    float dp3b = dot(g[0], Ib[0]) + dot(g[1], Ib[1]) + dot(g[2], Ib[2]);
+
+    float3 ret = {dp3r * dp3r, dp3g * dp3g, dp3b * dp3b};
+    return ret;
+}
+
+static int3 convolution (PixelRegion pr) {
+    float3 Ir[3] = {{(float) pr.topLeft.r, (float) pr.top.r, (float) pr.topRight.r},
+                    {(float) pr.left.r, (float) pr.center.r, (float) pr.right.r},
+                    {(float) pr.bottomLeft.r, (float) pr.bottom.r, (float) pr.bottomRight.r}};
+
+    float3 Ig[3] = {{(float) pr.topLeft.g, (float) pr.top.g, (float) pr.topRight.g},
+                    {(float) pr.left.g, (float) pr.center.g, (float) pr.right.g},
+                    {(float) pr.bottomLeft.g, (float) pr.bottom.g, (float) pr.bottomRight.g}};
+
+    float3 Ib[3] = {{(float) pr.topLeft.b, (float) pr.top.b, (float) pr.topRight.b},
+                    {(float) pr.left.b, (float) pr.center.b, (float) pr.right.b},
+                    {(float) pr.bottomLeft.b, (float) pr.bottom.b, (float) pr.bottomRight.b}};
+
+    float3 convolution[9] = {
+        convolutionPart(g1, Ir, Ig, Ib),
+        convolutionPart(g2, Ir, Ig, Ib),
+        convolutionPart(g3, Ir, Ig, Ib),
+        convolutionPart(g4, Ir, Ig, Ib),
+        convolutionPart(g5, Ir, Ig, Ib),
+        convolutionPart(g6, Ir, Ig, Ib),
+        convolutionPart(g7, Ir, Ig, Ib),
+        convolutionPart(g8, Ir, Ig, Ib),
+        convolutionPart(g9, Ir, Ig, Ib)
+    };
+
+    float3 M = (convolution[0] + convolution[1]) + (convolution[2] + convolution[3]);
+    float3 S = (convolution[4] + convolution[5]) + (convolution[6] + convolution[7]) + (convolution[8] + M);
+
+    int3 ret = { bound255((int) sqrt(M[0]/S[0])), bound255((int) sqrt(M[1]/S[1])), bound255((int) sqrt(M[2]/S[2])) };
+    return ret;
+}
+
+
 uchar4 RS_KERNEL freichen(uchar4 in, uint32_t x, uint32_t y) {
     PixelRegion pr = getPixelRegion (current_alloc, lastX, lastY, x, y);
     int3 rgbnew = calcAllMatrixG(pr);
     in.r = rgbnew.r;
     in.g = rgbnew.g;
     in.b = rgbnew.b;
+
+
+
+	//int3 newv = convolution(pr);
+	//in.r = newv[0];
+	//in.g = newv[1];
+	//in.b = newv[2];
+
 
     //in.r = bound255((int)
     //  HALF2R2*fabs((float) pr.topLeft.r + R2*pr.top.r + pr.topRight.r
