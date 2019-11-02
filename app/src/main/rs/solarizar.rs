@@ -19,7 +19,7 @@ uchar4 RS_KERNEL root(uchar4 in, uint32_t x, uint32_t y) {
     }
 
     if (in.b < 128) {
-       out.b = 255;
+       out.b = 255 - in.b;
     }
 
     return out;
