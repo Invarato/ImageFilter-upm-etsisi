@@ -143,16 +143,17 @@ public class MainActivity extends AppCompatActivity {
 //////                .prewitt()
 ////                .sepia()
 ////                .solarizar()
-////                .pasoBajo()
-////                .mediana()
-////                .pasoAlto()
+//                .pasoBajo()
+//                .mediana()
+                //.pasoAlto()
 //                .gradiente()
 //                .sobel()
 //                .roberts()
-//                .laplaciana()
+//                .laplaciana() // TODO no funciona correctamente
 //                .realceLaplaciana()
 //                .suavizadoRoberts()
-                .freichen()
+                .blancoNegro()
+//                .freichen() // TODO no funciona correctamente
                 .getBitmapProcessed();
 
 
