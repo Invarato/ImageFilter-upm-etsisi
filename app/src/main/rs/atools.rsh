@@ -89,8 +89,6 @@ static int bound255 (int val) {
 }
 
 static void bubbleSort(int a[], int array_size){
-    //int array_size = sizeof(a);
-    //int array_size = sizeof(a) / sizeof(a[0]);
     int i, j, temp;
     for (i = 0; i < (array_size - 1); ++i) {
          for (j = 0; j < array_size - 1 - i; ++j ) {

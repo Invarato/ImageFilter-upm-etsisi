@@ -5,9 +5,13 @@ import android.graphics.Bitmap;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
-import android.renderscript.ScriptC;
 import android.renderscript.ScriptIntrinsicBlur;
 
+import es.upm.etsisi.imagefilter.check.AlphaChannelValue;
+import es.upm.etsisi.imagefilter.check.BlackAndWhiteValue;
+import es.upm.etsisi.imagefilter.check.BrightValue;
+import es.upm.etsisi.imagefilter.check.ContrastValue;
+import es.upm.etsisi.imagefilter.check.PosterizeValue;
 import es.upm.etsisi.imagefilter.renders.ScriptC_blancoNegro;
 import es.upm.etsisi.imagefilter.renders.ScriptC_blancoverdadero;
 import es.upm.etsisi.imagefilter.renders.ScriptC_brillo;
@@ -263,15 +267,6 @@ public class FiltrosRS {
         return this;
     }
 
-//    public FiltrosRS moreNeighborhood(int umbral){
-//        ScriptC_mooreneighborhood mEqScript = new ScriptC_mooreneighborhood(rs);
-//        mEqScript.set_umbral(umbral);
-//
-//        mEqScript.invoke_process(tmpAllocation, tmpAllocation);
-//        mEqScript.destroy();
-//        return this;
-//    }
-
     public FiltrosRS gausianBlur(float blurRadius) {
         //Set the radius of the Blur. Supported range 0 < blurRadius <= 25
         if (blurRadius == 0) {
@@ -393,10 +388,7 @@ public class FiltrosRS {
      * @return this
      */
     public FiltrosRS blancoNegro(int umbral){
-        if (0 > umbral || umbral > 255){
-            throw new IllegalArgumentException("Bad umbral. Umbral only in range " +
-                    "0 <= umbral <= 255. Current umbral: " + umbral);
-        }
+        new BlackAndWhiteValue().checkValue(umbral);
 
         ScriptC_blancoNegro mEqScript = new ScriptC_blancoNegro(rs);
         mEqScript.set_umbral(umbral);
@@ -414,10 +406,7 @@ public class FiltrosRS {
      * @return this
      */
     public FiltrosRS canalAlpha(int newAlpha){
-        if (0 > newAlpha || newAlpha > 255){
-            throw new IllegalArgumentException("Bad Alpha. Alpha only in range " +
-                    "0 <= newAlpha <= 255. Current newAlpha: " + newAlpha);
-        }
+        new AlphaChannelValue().checkValue(newAlpha);
 
         ScriptC_canalAlpha mEqScript = new ScriptC_canalAlpha(rs);
         mEqScript.set_alpha(newAlpha);
@@ -436,10 +425,7 @@ public class FiltrosRS {
      * @return this
      */
     public FiltrosRS brillo(int addBrightness){
-        if (-255 > addBrightness || addBrightness > 255){
-            throw new IllegalArgumentException("Bad Brightness. Brightness only in range " +
-                    "0 <= Brightness <= 255. Current Brightness: " + addBrightness);
-        }
+        new BrightValue().checkValue(addBrightness);
 
         ScriptC_brillo mEqScript = new ScriptC_brillo(rs);
         mEqScript.set_brillo(addBrightness);
@@ -458,10 +444,7 @@ public class FiltrosRS {
      * @return this
      */
     public FiltrosRS contraste(int contrastAngle){
-        if (-255 > contrastAngle || contrastAngle > 255){
-            throw new IllegalArgumentException("Bad contrastAngle. contrastAngle only in range " +
-                    "0 <= contrastAngle <= 255. Current contrastAngle: " + contrastAngle);
-        }
+        new ContrastValue().checkValue(contrastAngle);
 
         ScriptC_contraste mEqScript = new ScriptC_contraste(rs);
         mEqScript.set_anguloContraste(contrastAngle);
@@ -480,10 +463,7 @@ public class FiltrosRS {
      * @return this
      */
     public FiltrosRS posterizar(int umbral){
-        if (1 > umbral || umbral > 255){
-            throw new IllegalArgumentException("Bad umbral. umbral only in range " +
-                    "1 <= umbral <= 255. Current umbral: " + umbral);
-        }
+        new PosterizeValue().checkValue(umbral);
 
         ScriptC_posterizar mEqScript = new ScriptC_posterizar(rs);
         mEqScript.set_umbral(umbral);

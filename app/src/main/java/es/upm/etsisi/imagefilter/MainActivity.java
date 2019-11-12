@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 ////                .invertir()
 ////                .histogramEqualization()
 ////                .blancoNegro()
-////                .matiz(360f)
+//                .matiz(360f)
 ////                .hsva(120f, 0.84f, 0.3f)
 //                //.hsva(-120.0f, -1.0f, -1.0f)
 ////                .brillo(-120)

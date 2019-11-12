@@ -3,6 +3,10 @@ package es.upm.etsisi.imagefilter;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import es.upm.etsisi.imagefilter.check.IntensityValue;
+import es.upm.etsisi.imagefilter.check.MatizValue;
+import es.upm.etsisi.imagefilter.check.SaturationValue;
+
 //https://developer.android.com/studio/projects/android-library?hl=es-419
 
 public class Filtros extends FiltrosRS {
@@ -99,10 +103,8 @@ public class Filtros extends FiltrosRS {
      * @return this
      */
     public Filtros matiz(float anguloMatiz){
-        if (0.0 > anguloMatiz || anguloMatiz > 360.0){
-            throw new IllegalArgumentException("Bad Angle. Angle only in range " +
-                    "0.0 <= Angle <= 360.0. Current Angle: " + anguloMatiz);
-        }
+        new MatizValue().checkValue(anguloMatiz);
+
         this.hsva(anguloMatiz, -1.0f, -1.0f);
         return this;
     }
@@ -116,10 +118,8 @@ public class Filtros extends FiltrosRS {
      * @return this
      */
     public Filtros saturacion(float newSaturation){
-        if (0.0 > newSaturation || newSaturation > 1.0){
-            throw new IllegalArgumentException("Bad saturacion. Saturacion only in range " +
-                    "0.0 <= Saturacion <= 1.0. Current Saturacion: " + newSaturation);
-        }
+        new SaturationValue().checkValue(newSaturation);
+
         this.hsva(-1.0f, newSaturation, -1.0f);
         return this;
     }
@@ -133,10 +133,8 @@ public class Filtros extends FiltrosRS {
      * @return this
      */
     public Filtros intensidad(float newIntensity){
-        if (0.0 > newIntensity || newIntensity > 1.0){
-            throw new IllegalArgumentException("Bad intensity. Intensity only in range " +
-                    "0.0 <= Intensity <= 1.0. Current Intensity: " + newIntensity);
-        }
+        new IntensityValue().checkValue(newIntensity);
+
         this.hsva(-1.0f, -1.0f, newIntensity);
         return this;
     }
